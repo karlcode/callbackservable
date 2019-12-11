@@ -2,11 +2,11 @@ import React, {useEffect, useRef, useState} from 'react';
 import logo from './logo.svg';
 import seeya from './seeya.png';
 import './App.css';
-import {extract, getBlurColor} from "./extract";
+import {extract} from "./extract";
 
 
 function App() {
-    const getBlur = getBlurColor(seeya);
+    const getBlur = extract(seeya);
     useEffect(() => {
         console.log(getBlur)
     })
