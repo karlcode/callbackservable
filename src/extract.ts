@@ -7,11 +7,15 @@ export function extract(imageSrc: string) {
     image.src = imageSrc;
     image.onload = function () {
         if (context) {
-            context.drawImage(image, 0, 0, 400, 400);
+            const height = image.naturalHeight
+            const width = image.naturalWidth
+            context.drawImage(image, 0, 0, width, height);
             blurCanvas(context);
             const imageData = context.getImageData(0, 0, 1, 1);
             console.log("the data is", imageData.data)
             // Converts rgba from getImageData 255 to hex
+
+            constructHistogram(context, height, width)
             let hex: string = "";
             for (let i = 0; i < 3; i++) { //i <=3 if we want to include the alpha i.e 00 or ff
                 hex += (imageData.data[i] | 1 << 8).toString(16).slice(1) //remove first char
@@ -21,6 +25,12 @@ export function extract(imageSrc: string) {
         }
     }
     return hexString;
+}
+function constructHistogram(context: CanvasRenderingContext2D, height: number, width: number) {
+    for(let i = 0; i < width; i++) {
+        const contextImage = context.getImageData(i, 0, 1, 1)
+        console.log(contextImage.data)
+    }
 }
 
 export function blurCanvas(context: CanvasRenderingContext2D) {
