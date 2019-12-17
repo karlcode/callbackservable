@@ -26,11 +26,15 @@ export function extract(imageSrc: string) {
     }
     return hexString;
 }
+
 function constructHistogram(context: CanvasRenderingContext2D, height: number, width: number) {
-    for(let i = 0; i < width; i++) {
-        const contextImage = context.getImageData(i, 0, 1, 1)
-        console.log(contextImage.data)
+    const length = context.getImageData(0,0, width, height).data.length;
+    console.log(length)
+    // For every x pixels, construct rgb chart and return
+    for(let i = 0; i < length; i+1000) {
+
     }
+
 }
 
 export function blurCanvas(context: CanvasRenderingContext2D) {
